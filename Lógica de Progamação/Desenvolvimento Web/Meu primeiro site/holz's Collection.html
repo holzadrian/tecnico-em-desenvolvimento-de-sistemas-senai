@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Holz's Collection - Sua loja de roupas streetwear com as melhores marcas nacionais e internacionais. Envio rápido e preços especiais.">
+  <title>Holz's Collection - Loja de Roupas Streetwear</title>
+
+  <!-- CSS Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- CSS Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    :root {
+      --primary-color: #000;
+      --secondary-color: #333;
+      --accent-color: #ccc;
+      --text-color: #333;
+      --background-color: #f8f8f8;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--background-color);
+      padding: 0;
+      margin: 0;
+      color: var(--text-color);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: transparent !important;
+      transition: background 0.3s ease, padding 0.3s ease;
+      z-index: 1000;
+      padding: 20px 40px;
+    }
+
+    .navbar .nav-link,
+    .navbar .navbar-brand {
+      color: white !important;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+      font-weight: 500;
+    }
+
+    .navbar .nav-link:hover,
+    .navbar .navbar-brand:hover {
+      color: var(--accent-color) !important;
+    }
+
+    .navbar.scrolled {
+      background: var(--primary-color) !important;
+      padding: 10px 40px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.scrolled .nav-link,
+    .navbar.scrolled .navbar-brand {
+      text-shadow: none;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      max-height: 600px;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("img/capa.png") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      color: white;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+      padding: 0 20px;
+    }
+
+    .hero-content .links {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-content .links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: 2px solid white;
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+
+    .hero-content .links a:hover {
+      background: white;
+      color: var(--primary-color);
+    }
+
+    /* Benefícios */
+    .beneficios {
+      padding: 60px 0;
+    }
+
+    .beneficios img {
+      transition: transform 0.3s ease;
+    }
+
+    .beneficios .col-md-6:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Container do carrossel - MODIFICADO */
+    .carousel-container {
+      width: 100%;
+      margin: 40px auto;
+      padding: 20px 40px;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    /* Swiper - Centralizado com 5 produtos visíveis */
+    .swiper-container {
+      width: 100%;
+      padding: 20px 0;
+    }
+
+    .swiper-slide {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      padding: 15px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: auto;
+      margin: 0 10px;
+    }
+
+    .swiper-slide:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Estilização das setas de navegação - Posicionadas nas laterais - MODIFICADO */
+    .swiper-button-next, 
+    .swiper-button-prev {
+      color: var(--primary-color);
+      background: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+      top: 40%;
+    }
+
+    .swiper-button-next {
+      right: 10px;
+    }
+
+    .swiper-button-prev {
+      left: 10px;
+    }
+
+    .swiper-button-next:after, 
+    .swiper-button-prev:after {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .swiper-button-next:hover, 
+    .swiper-button-prev:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    /* Produtos - Formato Quadrado */
+    .product-image-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      width: 100%;
+      height: 250px;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .swiper-slide:hover .product-image {
+      transform: scale(1.05);
+    }
+
+    .product-name {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: color 0.2s;
+      height: 40px;
+      overflow: hidden;
+      display: -webkit-box;
+      --webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .product-name:hover {
+      color: var(--secondary-color);
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 8px;
+      color: var(--primary-color);
+    }
+
+    .buy-button {
+      background: var(--primary-color);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 30px;
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background 0.3s;
+      width: 100%;
+    }
+
+    .buy-button:hover {
+      background: var(--secondary-color);
+    }
+
+    .espaco-extra {
+      padding: 80px 0;
+    }
+
+    section {
+      scroll-margin-top: 80px;
+    }
+
+    /* Contato */
+    .contact-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-link:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-color);
+      color: white;
+      padding: 40px 0;
+      margin-top: 60px;
+    }
+
+    /* Responsividade - MODIFICADO */
+    @media (max-width: 1400px) {
+      .carousel-container {
+        padding: 20px 30px;
+      }
+      
+      .swiper-button-next {
+        right: 5px;
+      }
+      
+      .swiper-button-prev {
+        left: 5px;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .carousel-container {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .navbar {
+        padding: 15px 20px;
+      }
+      
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-content h3 {
+        font-size: 1.2rem;
+      }
+      
+      .swiper-slide {
+        padding: 10px;
+      }
+      
+      .product-image-container {
+        height: 220px;
+      }
+      
+      .swiper-button-next, 
+      .swiper-button-prev {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 10px 15px;
+      }
+      
+      .navbar-collapse {
+        background: var(--primary-color);
+        padding: 15px;
+        margin-top: 10px;
+        border-radius: 5px;
+      }
+      
+      .hero-section {
+        height: 70vh;
+      }
+      
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .beneficios .col-md-6 {
+        margin-bottom: 30px;
+      }
+      
+      .product-image-container {
+        height: 200px;
+      }
+      
+      .swiper-button-next, 
+      .swiper-button-prev {
+        display: none;
+      }
+      
+      .carousel-container {
+        padding: 0 15px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-content .links {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .hero-content .links a {
+        width: 200px;
+        text-align: center;
+      }
+      
+      .product-name, .price {
+        text-align: center;
+      }
+      
+      .product-image-container {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Holz's Collection</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#sobre">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="#outlet">Outlet</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Produtos</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="Camisetas.html">Camisetas</a></li>
+              <li><a class="dropdown-item" href="Calças.html">Calças</a></li>
+              <li><a class="dropdown-item" href="Tenis.html">Tênis</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="display-3 fw-bold">Holz's Collection</h1>
+      <h3 class="fw-normal">Inspiração para vestir seus melhores momentos</h3>
+      <div class="links">
+        <a href="https://www.instagram.com/hlzadrian" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://wa.me/5547997845924?text=Olá,%20gostaria%20de%20mais%20informações%20sobre%20seus%20produtos" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção de Benefícios -->
+  <section class="beneficios col-lg-8 mx-auto espaco-extra">
+    <div class="container">
+      <h2 class="text-center mb-5">Vantagens Exclusivas</h2>
+      <div class="row text-center">
+
+        <!-- Item 1 -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <img src="IMG/envio.png" alt="Ícone de caminhão de entrega" width="60">
+          <h5 class="mt-3"><b>Frete Grátis</b></h5>
+          <p>Em compras a partir de R$599,90 para Joinville</p>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <img src="IMG/dinheiro.png" alt="Ícone de dinheiro do PIX" width="60">
+          <h5 class="mt-3"><b>Pague com PIX</b></h5>
+          <p>5% de desconto no pagamento via PIX</p>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <img src="IMG/cartão.png" alt="Ícone de cartão de crédito" width="60">
+          <h5 class="mt-3"><b>Parcele no Cartão</b></h5>
+          <p>Até 3x sem juros no cartão de crédito</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Outlet -->
+  <section id="outlet" class="espaco-extra">
+    <div class="container">
+      <h2 class="fw-normal text-center mb-5">Outlet</h2>
+      <div class="carousel-container">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <!-- Produto 1 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/TnB Storm Grey Atras.png" data-hover="img/TnB Storm Grey Frente.webp" class="product-image" alt="Calça Storm Grey Baggy Jeans - Vista traseira" loading="lazy">
+              </div>
+              <div class="product-name">Storm Grey Baggy Jeans</div>
+              <div class="price">R$ 329,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+
+            <!-- Produto 2 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/TnB Jeans STONER Lado Esq.png" data-hover="img/Tnb Jeans STONER frente.webp" class="product-image" alt="Calça Jeans STONER - Vista lateral" loading="lazy">
+              </div>
+              <div class="product-name">Calça Jeans STONER</div>
+              <div class="price">R$ 359,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+
+            <!-- Produto 3 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Prime Baggy Jeans.png" data-hover="img/Prime Baggy Jeans Frente.png" class="product-image" alt="Calça Prime Baggy Jeans - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Prime Baggy Jeans</div>
+              <div class="price">R$ 329,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 4 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Black Baggy Jeans.png" data-hover="img/Black Baggy Jeans Atras.png" class="product-image" alt="Calça Black Baggy Jeans - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Black Baggy Jeans</div>
+              <div class="price">R$ 339,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 5 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Carpenter DESERT.png" data-hover="img/Carpenter DESERT Atras.png" class="product-image" alt="Calça Carpenter DESERT Jeans - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Carpenter DESERT Jeans</div>
+              <div class="price">R$ 349,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 6 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/GuthPants BAGGY WASHED.png" data-hover="img/GuthPants BAGGY WASHED Atras.png" class="product-image" alt="Calça GuthPants BAGGY WASHED - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">GuthPants BAGGY WASHED</div>
+              <div class="price">R$ 259,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 7 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Ciena Lab Horse Index Heavy Tee Frente.png" data-hover="img/Ciena Lab Horse Index Heavy Tee Atras.webp" class="product-image" alt="Camiseta Ciena Horse Index Heavy - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Ciena Horse Index Heavy</div>
+              <div class="price">R$ 219,00</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 8 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Ciena Corp Control Heavy Tee.png" data-hover="img/Ciena Corp Control Heavy Tee Frente.png" class="product-image" alt="Camiseta Ciena Corp Control Heavy - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Ciena Corp Control Heavy</div>
+              <div class="price">R$ 219,00</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 9 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/AtomiC Heavy Tee.png" data-hover="img/AtomiC Heavy Tee Frente.png" class="product-image" alt="Camiseta Ciena AtomiC Heavy - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Ciena AtomiC Heavy</div>
+              <div class="price">R$ 219,00</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 10 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Polo Preux A Place to Live.png" data-hover="img/Polo Preux A Place to Live Atras.png" class="product-image" alt="Polo Preux A Place to Live - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Preux A Place to Live</div>
+              <div class="price">R$ 249,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 11 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/MAD ENLATADOS CASALCOWBOY.png" data-hover="img/MAD ENLATADOS CASALCOWBOY (2).png" class="product-image" alt="Camiseta MAD CASALCOWBOY - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">MAD CASALCOWBOY</div>
+              <div class="price">R$ 109,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 12 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Nike Court Vision Frente.png" data-hover="img/Nike Court Vision Atras.avif" class="product-image" alt="Tênis Nike Court Vision Low - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Nike Court Vision Low</div>
+              <div class="price">R$ 379,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 13 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Nike Initiator.png" data-hover="img/Nike Initiator Atras.png" class="product-image" alt="Tênis Nike Initiator - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Nike Initiator</div>
+              <div class="price">R$ 699,99</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 14 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Nike Air Max 95 Corteiz-Gridiron.png" data-hover="img/Nike Air Max 95 Corteiz-Gridiron Atras.png" class="product-image" alt="Tênis Nike Air Max 95 Corteiz-Gridiron - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Nike Air Max 95 Corteiz-Gridiron</div>
+              <div class="price">R$ 14.142</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 15 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Nike Air Max Fire.png" data-hover="img/Nike Air Max Fire Atras.png" class="product-image" alt="Tênis Nike Air Max Fire - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Nike Air Max Fire</div>
+              <div class="price">R$ 899,99</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 16 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Hocks Flat Lite Refletivo.png" data-hover="img/Hocks Flat Lite Refletivo Atras.png" class="product-image" alt="Boné Hocks Flat Lite Refletivo - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Hocks Flat Lite Refletivo</div>
+              <div class="price">R$ 269,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 17 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Hocks Puff Refletivo.png" data-hover="img/Hocks Puff Refletivo Cima.png" class="product-image" alt="Boné Hocks Puff Refletivo - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Hocks Puff Refletivo</div>
+              <div class="price">R$ 379,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+            
+            <!-- Produto 18 -->
+            <div class="swiper-slide">
+              <div class="product-image-container">
+                <img src="img/Vans Old Skool Pro Skate.png" data-hover="img/Vans Old Skool Pro Skate Atras.png" class="product-image" alt="Tênis Vans Old Skool Pro Skate - Vista frontal" loading="lazy">
+              </div>
+              <div class="product-name">Vans Old Skool Pro Skate</div>
+              <div class="price">R$ 449,90</div>
+              <button class="buy-button">COMPRAR</button>
+            </div>
+          </div>
+
+          <!-- Botões do Swiper - Posicionados nas laterais -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre -->
+  <section id="sobre" class="col-lg-8 mx-auto espaco-extra">
+    <div class="container">
+      <h2 class="fw-normal text-center mb-5">Sobre</h2>
+    
+      <p class="lead mb-4">
+        Holz's Collection é a sua loja virtual de roupas streetwear, oferecendo uma curadoria de peças que unem estilo, conforto e qualidade. Nossa coleção reúne desde os lançamentos mais desejados até clássicos que nunca saem de moda, tudo cuidadosamente selecionado para quem busca variedade e bom gosto.
+      </p>
+    
+      <p class="lead mb-4">
+        Trabalhamos com marcas nacionais como Tá na Base, Ciena Lab, Hocks, Mack Domination, Preux e Mad Enlatados, garantindo peças autênticas do streetwear brasileiro. Além disso, contamos com marcas internacionais renomadas, como Nike, Adidas, Vans e Puma, trazendo os ícones do estilo urbano para o seu guarda-roupa.
+      </p>
+    
+      <p class="lead mb-4">
+        Nosso outlet virtual oferece preços exclusivos, permitindo que você encontre peças incríveis sem sair de casa. Navegue pelos nossos looks, descubra seu próximo fit favorito e aproveite uma experiência de compra prática, segura e totalmente online.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato" class="col-lg-8 mx-auto espaco-extra">
+    <div class="container">
+      <h2 class="fw-normal text-center mb-5">Entre em contato</h2>
+      <div class="contact-info">
+        
+        <p class="lead mb-4 text-center">
+          <a href="tel:4799784-5924" class="contact-link">(47) 99784-5924</a>
+        </p>
+        
+        <p class="lead mb-4 text-center">
+          <a href="mailto:holzadrian8@gmail.com" class="contact-link">holzadrian8@gmail.com</a>
+        </p>
+
+        <p class="lead mb-4 text-center">
+          Rua Egon Behling, 42 – Jardim Sofia, Joinville – SC
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <div class="container">
+      <p>Holz's Collection &copy; 2023 - Todos os direitos reservados</p>
+      <div class="mt-3">
+        <a href="https://www.instagram.com/hlzadrian" target="_blank" rel="noopener noreferrer" class="text-white me-3">Instagram</a>
+        <a href="https://wa.me/5547997845924" target="_blank" rel="noopener noreferrer" class="text-white">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Navbar: muda cor ao rolar
+    window.addEventListener("scroll", function () {
+      const navbar = document.querySelector(".navbar");
+      const hero = document.querySelector(".hero-section");
+
+      const heroHeight = hero.offsetHeight;
+
+      if (window.scrollY > heroHeight - 10) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+
+    // Swiper - Configuração para mostrar 5 produtos - MODIFICADO
+    const swiper = new Swiper(".swiper-container", {
+      slidesPerView: 5,
+      spaceBetween: 20,
+      centeredSlides: false,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      loop: true,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 10,
+          centeredSlides: true
+        },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 15,
+          centeredSlides: true
+        },
+        992: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+          centeredSlides: true
+        },
+        1200: {
+          slidesPerView: 4,
+          spaceBetween: 25,
+          centeredSlides: false
+        },
+        1400: {
+          slidesPerView: 5,
+          spaceBetween: 30,
+          centeredSlides: false
+        }
+      }
+    });
+
+    // Troca imagem no hover
+    document.querySelectorAll(".product-image").forEach((img) => {
+      img.setAttribute("data-original", img.src);
+
+      img.addEventListener("mouseenter", () => {
+        const hoverSrc = img.getAttribute("data-hover");
+        if (hoverSrc) {
+          img.style.opacity = 0;
+          setTimeout(() => {
+            img.src = hoverSrc;
+            img.style.opacity = 1;
+          }, 150);
+        }
+      });
+
+      img.addEventListener("mouseleave", () => {
+        img.style.opacity = 0;
+        setTimeout(() => {
+          img.src = img.getAttribute("data-original");
+          img.style.opacity = 1;
+        }, 150);
+      });
+    });
+
+    // Redirecionamento para página do produto
+    document.querySelectorAll('.swiper-slide, .buy-button').forEach(element => {
+      if (!element.classList.contains('buy-button')) {
+        element.addEventListener('click', (e) => {
+          // Evita redirecionamento se clicar no botão de compra
+          if (!e.target.classList.contains('buy-button')) {
+            // Aqui você pode adicionar a lógica para redirecionar para a página do produto
+            console.log('Redirecionar para página do produto');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

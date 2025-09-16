@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="algoritimo"/>
+        <attribute name="authors" value="mateus_timmes"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2025-04-23 08:50:36 "/>
+        <attribute name="created" value="bWF0ZXVzX3RpbW1lcztTTi00MDE1Njg7MjAyNS0wNC0yMjsiMDc6MDg6MzYgIjszMTE5"/>
+        <attribute name="edited" value="bWF0ZXVzX3RpbW1lcztTTi00MDE1Njg7MjAyNS0wNC0yMjsiMTA6Mjc6MzkgIjsxOzMyMjU="/>
+        <attribute name="edited" value="RGVsbDtERVNLVE9QLUJCMDFORzQ7MjAyNS0wNC0yMzsiMTI6MjE6MDggIjsyOzI2OTQ="/>
+        <attribute name="edited" value="YWRyaWFuX2hvbHo7U04tNDAxNTk0OzIwMjUtMDQtMjM7IjA4OjUwOjM2ICI7MTsyOTgz"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="Menu, TotalProdutos, MaxProdutos, NumProduto, QntProdutos, i, posicao, NovaQuantidade, j" type="Integer" array="False" size=""/>
+            <declare name="VlrUnitario" type="Real" array="False" size=""/>
+            <declare name="NovoPreco" type="Real" array="False" size=""/>
+            <declare name="NomeProduto, DispVenda, SBusca, SMenu" type="String" array="False" size=""/>
+            <declare name="BuscaNome" type="String" array="False" size=""/>
+            <declare name="BuscaNum" type="Integer" array="False" size=""/>
+            <declare name="Produtos" type="String" array="True" size="64"/>
+            <declare name="Precos" type="Real" array="True" size="64"/>
+            <declare name="Quantidades, Numeros" type="Integer" array="True" size="64"/>
+            <declare name="Disponibilidade, Nomes" type="String" array="True" size="64"/>
+            <assign variable="DispVenda" expression="&quot;&quot;"/>
+            <assign variable="BuscaNome" expression="&quot;&quot;"/>
+            <assign variable="Menu" expression="0"/>
+            <assign variable="TotalProdutos" expression="0"/>
+            <assign variable="MaxProdutos" expression="10"/>
+            <for variable="i" start="1" end="63" direction="inc" step="1">
+                <assign variable="Numeros[i]" expression="0"/>
+                <assign variable="Nomes[i]" expression="&quot;&quot;"/>
+                <assign variable="Quantidades[i]" expression="0"/>
+                <assign variable="Precos[i]" expression="0"/>
+                <assign variable="Disponibilidade[i]" expression="&quot;&quot;"/>
+            </for>
+            <output expression="&quot;Seja bem-vindo ao menu da Tem de Tudo!&quot;" newline="True"/>
+            <output expression="&quot;Digite 1 para cadastrar um novo produto&quot;" newline="True"/>
+            <output expression="&quot;Digite 2 para listar os produtos&quot;" newline="True"/>
+            <output expression="&quot;Digite 3 para alterar um produto&quot;" newline="True"/>
+            <output expression="&quot;Digite 4 para remover um produto.&quot;" newline="True"/>
+            <output expression="&quot;Digite 5 para buscar um produto.&quot;" newline="True"/>
+            <output expression="&quot;Digite 6 para sair&quot;" newline="True"/>
+            <input variable="Menu"/>
+            <while expression="Menu &lt; 6">
+                <if expression="Menu = 1">
+                    <then>
+                        <if expression="TotalProdutos &gt;= MaxProdutos">
+                            <then>
+                                <output expression="&quot;O limite de produtos foi atingido!&quot;" newline="True"/>
+                            </then>
+                            <else>
+                                <assign variable="TotalProdutos" expression="TotalProdutos + 1"/>
+                                <output expression="&quot;Crie um n&#250;mero para o produto: &quot;" newline="True"/>
+                                <input variable="Numeros[TotalProdutos]"/>
+                                <output expression="&quot;Digite um nome para o produto: &quot;" newline="True"/>
+                                <input variable="Nomes[TotalProdutos]"/>
+                                <output expression="&quot;Digite o valor unit&#225;rio do produto (usar ponto ao invez de virgula). &quot;" newline="True"/>
+                                <input variable="Precos[TotalProdutos]"/>
+                                <output expression="&quot;Digite a quantidade: &quot;" newline="True"/>
+                                <input variable="Quantidades[TotalProdutos]"/>
+                                <output expression="&quot;O produto est&#225; dispon&#237;vel para venda? (sim/n&#227;o) &quot;" newline="True"/>
+                                <input variable="DispVenda"/>
+                                <while expression="DispVenda != &quot;n&#227;o&quot; &amp;&amp; DispVenda != &quot;sim&quot;">
+                                    <output expression="&quot;Digite apenas sim ou n&#227;o! &quot;" newline="True"/>
+                                    <input variable="DispVenda"/>
+                                </while>
+                                <assign variable="Disponibilidade[TotalProdutos]" expression="DispVenda"/>
+                                <output expression="&quot;O produto foi cadastrado com sucesso!&quot;" newline="True"/>
+                            </else>
+                        </if>
+                    </then>
+                    <else>
+                        <if expression="Menu = 2">
+                            <then>
+                                <if expression="TotalProdutos = 0">
+                                    <then>
+                                        <output expression="&quot;Nenhum produto foi cadastrado.&quot;" newline="True"/>
+                                    </then>
+                                    <else>
+                                        <for variable="i" start="1" end="TotalProdutos" direction="inc" step="1">
+                                            <output expression="&quot;---- Produto &quot; &amp; &quot; &quot; &amp; i &amp; &quot; &quot; &amp; &quot; ----&quot;" newline="True"/>
+                                            <output expression="&quot;N&#250;mero: &quot; &amp; Numeros[i]" newline="True"/>
+                                            <output expression="&quot;Nome: &quot; &amp; Nomes[i]" newline="True"/>
+                                            <output expression="&quot;Valor unit&#225;rio: R$ &quot; &amp; Precos[i]" newline="True"/>
+                                            <output expression="&quot;Quantidade: &quot; &amp; Quantidades[i]" newline="True"/>
+                                            <output expression="&quot;Dispon&#237;vel para venda: &quot; &amp; Disponibilidade[i]" newline="True"/>
+                                        </for>
+                                    </else>
+                                </if>
+                            </then>
+                            <else>
+                                <if expression="Menu = 3">
+                                    <then>
+                                        <output expression="&quot;Digite o n&#250;mero do produto que voc&#234; deseja alterar: &quot;" newline="True"/>
+                                        <input variable="NumProduto"/>
+                                        <assign variable="Posicao" expression="0"/>
+                                        <for variable="i" start="1" end="TotalProdutos" direction="inc" step="1">
+                                            <if expression="Numeros[i] = NumProduto">
+                                                <then>
+                                                    <assign variable="posicao" expression="i"/>
+                                                </then>
+                                                <else/>
+                                            </if>
+                                        </for>
+                                        <if expression="Posicao = 0">
+                                            <then>
+                                                <output expression="&quot;Produto n&#227;o foi encontrado.&quot;" newline="True"/>
+                                            </then>
+                                            <else>
+                                                <output expression="&quot;Digite o novo pre&#231;o: &quot;" newline="True"/>
+                                                <input variable="NovoPreco"/>
+                                                <output expression="&quot;Digite a nova quantidade: &quot;" newline="True"/>
+                                                <input variable="NovaQuantidade"/>
+                                                <assign variable="Precos[Posicao]" expression="NovoPreco"/>
+                                                <assign variable="Quantidades[Posicao]" expression="NovaQuantidade"/>
+                                                <output expression="&quot;O produto foi atualizado com sucesso!&quot;" newline="True"/>
+                                            </else>
+                                        </if>
+                                    </then>
+                                    <else>
+                                        <if expression="Menu = 4">
+                                            <then>
+                                                <output expression="&quot;Digite o n&#250;mero do produto que voc&#234; deseja remover: &quot;" newline="True"/>
+                                                <input variable="NumProduto"/>
+                                                <for variable="i" start="1" end="TotalProdutos" direction="inc" step="1">
+                                                    <if expression="Numeros[i] == NumProduto">
+                                                        <then>
+                                                            <for variable="j" start="i" end="TotalProdutos" direction="inc" step="1">
+                                                                <assign variable="Numeros[j]" expression="Numeros[j + 1]"/>
+                                                                <assign variable="Nomes[j]" expression="Nomes[j + 1]"/>
+                                                                <assign variable="Precos[j]" expression="Precos[j + 1]"/>
+                                                                <assign variable="Quantidades[j]" expression="Quantidades[j + 1]"/>
+                                                                <assign variable="Disponibilidade[j]" expression="Disponibilidade[j + 1]"/>
+                                                            </for>
+                                                            <assign variable="TotalProdutos" expression="TotalProdutos - 1"/>
+                                                            <output expression="&quot;O produto foi removido com sucesso!&quot;" newline="True"/>
+                                                        </then>
+                                                        <else>
+                                                            <output expression="&quot;O produto n&#227;o foi encotrado.&quot;" newline="True"/>
+                                                        </else>
+                                                    </if>
+                                                </for>
+                                            </then>
+                                            <else>
+                                                <if expression="Menu = 5">
+                                                    <then>
+                                                        <output expression="&quot;O que voc&#234; deseja buscar? (Numero/Nome)   &quot;" newline="True"/>
+                                                        <input variable="SBusca"/>
+                                                        <while expression="SBusca != &quot;Numero&quot; &amp;&amp; SBusca != &quot;Nome&quot;">
+                                                            <output expression="&quot;Digite apenas (Numero/Nome)!&quot;" newline="True"/>
+                                                            <input variable="SBusca"/>
+                                                        </while>
+                                                        <if expression="SBusca == &quot;Numero&quot;">
+                                                            <then>
+                                                                <output expression="&quot;Digite o n&#250;mero do produto: &quot;" newline="True"/>
+                                                                <input variable="BuscaNum"/>
+                                                            </then>
+                                                            <else>
+                                                                <output expression="&quot;Digite o nome do produto: &quot;" newline="True"/>
+                                                                <input variable="BuscaNome"/>
+                                                                <assign variable="BuscaNum" expression="0"/>
+                                                            </else>
+                                                        </if>
+                                                        <assign variable="Posicao" expression="0"/>
+                                                        <for variable="i" start="1" end="TotalProdutos" direction="inc" step="1">
+                                                            <if expression="SBusca == &quot;Numero&quot;">
+                                                                <then>
+                                                                    <if expression="BuscaNum == Numeros[i]">
+                                                                        <then>
+                                                                            <assign variable="Posicao" expression="i"/>
+                                                                            <output expression="&quot;Produto encontrado!&quot;" newline="True"/>
+                                                                            <output expression="&quot;N&#250;mero: &quot; &amp; Numeros[i]" newline="True"/>
+                                                                            <output expression="&quot;Nome: &quot; &amp; Nomes[i]" newline="True"/>
+                                                                            <output expression="&quot;Pre&#231;o: R$ &quot; &amp; Precos[i]" newline="True"/>
+                                                                            <output expression="&quot;Quantidade: &quot; &amp; Quantidades[i]" newline="True"/>
+                                                                            <output expression="&quot;Dispon&#237;vel: &quot; &amp; Disponibilidade[i]" newline="True"/>
+                                                                            <output expression="&quot;Valor total em estoque: R$ &quot; &amp; Precos[i] * Quantidades[i]" newline="True"/>
+                                                                        </then>
+                                                                        <else/>
+                                                                    </if>
+                                                                </then>
+                                                                <else>
+                                                                    <if expression="BuscaNome = Nomes[i]">
+                                                                        <then>
+                                                                            <assign variable="Posicao" expression="i"/>
+                                                                            <output expression="&quot;Produto encontrado!&quot;" newline="True"/>
+                                                                            <output expression="&quot;N&#250;mero: &quot; &amp; Numeros[i]" newline="True"/>
+                                                                            <output expression="&quot;Nome: &quot; &amp; Nomes[i]" newline="True"/>
+                                                                            <output expression="&quot;Pre&#231;o: R$ &quot; &amp; Precos[i]" newline="True"/>
+                                                                            <output expression="&quot;Quantidade: &quot; &amp; Quantidades[i]" newline="True"/>
+                                                                            <output expression="&quot;Dispon&#237;vel: &quot; &amp; Disponibilidade[i]" newline="True"/>
+                                                                            <output expression="&quot;Valor total em estoque: R$ &quot; &amp; Precos[i] * Quantidades[i]" newline="True"/>
+                                                                        </then>
+                                                                        <else/>
+                                                                    </if>
+                                                                </else>
+                                                            </if>
+                                                        </for>
+                                                    </then>
+                                                    <else/>
+                                                </if>
+                                            </else>
+                                        </if>
+                                    </else>
+                                </if>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+                <assign variable="Menu" expression="0"/>
+                <output expression="&quot;Deseja retornar ao menu? (sim/n&#227;o) &quot;" newline="True"/>
+                <input variable="SMenu"/>
+                <if expression="SMenu == &quot;sim&quot;">
+                    <then>
+                        <output expression="&quot;Seja bem-vindo ao menu da Tem de Tudo!&quot;" newline="True"/>
+                        <output expression="&quot;Digite 1 para cadastrar um novo produto&quot;" newline="True"/>
+                        <output expression="&quot;Digite 2 para listar os produtos&quot;" newline="True"/>
+                        <output expression="&quot;Digite 3 para alterar um produto&quot;" newline="True"/>
+                        <output expression="&quot;Digite 4 para remover um produto.&quot;" newline="True"/>
+                        <output expression="&quot;Digite 5 para buscar um produto.&quot;" newline="True"/>
+                        <output expression="&quot;Digite 6 para sair&quot;" newline="True"/>
+                        <input variable="Menu"/>
+                    </then>
+                    <else>
+                        <assign variable="Menu" expression="6"/>
+                    </else>
+                </if>
+            </while>
+            <output expression="&quot;Saindo do sistema...&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="Teste" type="None" variable="Teste">
+        <parameters/>
+        <body/>
+    </function>
+</flowgorithm>

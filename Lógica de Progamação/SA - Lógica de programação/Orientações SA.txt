@@ -1,0 +1,47 @@
+Orientação SA – Lógica de programação
+Nesta Situação de Aprendizagem (SA), você e sua equipe irão desenvolver uma aplicação com base em um problema real de mercado, utilizando os conhecimentos de lógica de programação e práticas de codificação. A proposta envolve o desenvolvimento de um CRUD de pessoas, com foco em validações de dados e organização lógica do código.
+
+ 
+Contextualização – Situação Problema
+A startup TechNova está expandindo seus serviços e precisa de um sistema funcional para cadastrar e gerenciar pessoas envolvidas em suas operações – como clientes, funcionários ou fornecedores.
+
+Porém, além de apenas cadastrar, é fundamental garantir qualidade e integridade nos dados, com validações como:
+
+Nome obrigatório;
+CPF válido;
+CEP e e-mail bem formatados;
+Idade positiva;
+Outros campos a critério da equipe;
+A startup, então, contratou você e seus colegas para para construir esse sistema, desde a lógica inicial até a implementação funcional.
+
+ 
+
+Desafio Proposto
+Trabalhando em equipes, os alunos deverão:
+
+Analisar o problema e definir quais dados pessoais serão armazenados;
+Implementar um CRUD funcional (Criar, Ler, Atualizar, Deletar) com validações, usando Portugol (WebStudio) ou Python;
+Criar uma interface simples via console ou menus textuais.
+ 
+
+Validações obrigatórias
+Nome não pode estar vazio;
+CPF com 11 dígitos e verificação (pode ser simplificada);
+Idade maior que 0;
+E-mail com "@" e ".";
+CEP com 8 dígitos;
+Outros campos conforme criatividade.
+ 
+
+Resultados Esperados
+Sistema CRUD funcional, com as funcionalidades:
+
+Cadastrar pessoa;
+Listar pessoas;
+Atualizar dados;
+Excluir pessoa;
+Validações implementadas com mensagens claras ao usuário.
+ 
+
+Entrega Obrigatória
+Código-fonte funcional (.alg, .py ou outro)

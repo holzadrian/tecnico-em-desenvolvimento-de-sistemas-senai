@@ -1,0 +1,26 @@
+Sistema de Gerenciamento de Loja de Roupas
+Explicação do Sistema Escolhido
+Escolhi modelar um sistema de gerenciamento de loja de roupas porque:
+
+Contexto realista: Representa um negócio comum do mundo real com operações claras e relacionamentos bem definidos entre entidades.
+
+Relações complexas: Permite demonstrar diferentes tipos de relacionamentos, incluindo a relação N para N entre Pedidos e Produtos (através da tabela ItensPedido).
+
+Dados variados: Envolve diferentes tipos de informação - dados de clientes, informações de produtos, registros de vendas e detalhes de transações.
+
+Aplicabilidade prática: É um sistema útil para pequenas e médias empresas do varejo de moda, facilitando o controle de estoque, vendas e clientes.
+
+Estrutura do Sistema:
+Entidades principais:
+
+Clientes: Armazena informações pessoais dos compradores
+
+Produtos: Contém o catálogo de itens disponíveis para venda
+
+Pedidos: Registra as vendas realizadas
+
+ItensPedido: Tabela intermediária que resolve a relação N para N (um pedido pode ter vários produtos, e um produto pode estar em vários pedidos)
+
+Relação N para N: A tabela "ItensPedido" implementa o relacionamento muitos-para-muitos entre Pedidos e Produtos, contendo a quantidade de cada produto em cada pedido e mantendo o preço unitário no momento da venda (importante para histórico, já que preços podem mudar).
+
+Este modelo permite consultas como: "Quais produtos um cliente comprou?", "Qual cliente comprou determinado produto?" e "Qual o valor total de vendas por período?" - perguntas típicas de um sistema de gestão comercial.
