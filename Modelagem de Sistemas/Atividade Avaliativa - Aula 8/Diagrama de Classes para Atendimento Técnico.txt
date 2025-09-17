@@ -1,0 +1,139 @@
+classDiagram
+    class Cliente {
+        - int id
+        - String nome
+        - String cpf
+        - String telefoneContato
+        - String email
+        + realizarPedido()
+        + consultarStatusPedido()
+        + responderPesquisaSatisfacao()
+    }
+
+    class Telefone {
+        - int id
+        - String numero
+        - String ddd
+        - String tipo
+        + validarNumero()
+        + formatarNumero()
+    }
+
+    class Atendente {
+        - int id
+        - String nome
+        - String matricula
+        - String email
+        + registrarPedido()
+        + atualizarStatusPedido()
+        + consultarHistoricoCliente()
+    }
+
+    class Tecnico {
+        - int id
+        - String nome
+        - String especialidade
+        - boolean disponivel
+        + executarServico()
+        + registrarLaudoTecnico()
+        + atualizarStatusEquipamento()
+    }
+
+    class Equipamento {
+        - int id
+        - String marca
+        - String modelo
+        - String numeroSerie
+        + verificarGarantia()
+        + consultarHistoricoManutencao()
+    }
+
+    class Historico {
+        - int id
+        - Date data
+        - String descricao
+        - String tecnicoResponsavel
+        + registrarEvento()
+        + consultarPorPeriodo()
+        + exportarRelatorio()
+    }
+
+    class Categoria {
+        - int id
+        - String nome
+        - String descricao
+        + adicionarSubCategoria()
+        + listarItens()
+    }
+
+    class SubCategoria {
+        - int id
+        - String nome
+        - String descricao
+        + vincularItem()
+        + listarItens()
+    }
+
+    class ItemCategoria {
+        - int id
+        - String nome
+        - String descricao
+        - double preco
+        + calcularValorServico()
+        + verificarDisponibilidade()
+    }
+
+    class Pedido {
+        - int id
+        - Date dataAbertura
+        - Date dataConclusao
+        - String status
+        + calcularPrazo()
+        + atualizarStatus()
+        + atribuirTecnico()
+    }
+
+    class PesquisaSatisfacao {
+        - int id
+        - int nota
+        - String comentarios
+        - Date dataResposta
+        + calcularIndiceSatisfacao()
+        + gerarRelatorio()
+    }
+
+    class Situacoes {
+        - int id
+        - String descricao
+        - String tipo
+        + listarSituacoesAtivas()
+        + atualizarSituacao()
+    }
+
+    class TipoServico {
+        - int id
+        - String nome
+        - String descricao
+        - double valorBase
+        + calcularOrcamento()
+        + verificarDisponibilidade()
+    }
+
+    class Prazos {
+        - int id
+        - Date dataPrevista
+        - Date dataConclusao
+        - int diasUteis
+        + calcularPrazo()
+        + verificarAtraso()
+        + notificarVencimento()
+    }
+
+    class Grupo {
+        - int id
+        - String nome
+        - String descricao
+        + adicionarMembro()
+        + removerMembro()
+        + listarMembros()
+    }
