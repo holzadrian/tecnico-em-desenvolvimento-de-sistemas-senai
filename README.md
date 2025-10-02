@@ -23,6 +23,8 @@ Este projeto é para fins educacionais e está sob a licença do SENAI.
 ## 📞 Contato
 
 - **Estudante**: Adrian Holz
+- **E-mail**: holzadrian8@gmail.com
+- **Celular**: (47) 99784-5924
 - **Curso**: Técnico em Desenvolvimento de Sistemas
 - **Instituição**: SENAI Sul - Joinville/SC
 - **Ano**: 2025 - 2027
