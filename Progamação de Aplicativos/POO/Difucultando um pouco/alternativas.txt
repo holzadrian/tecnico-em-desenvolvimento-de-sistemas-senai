@@ -1,0 +1,12 @@
+Sobre Programação Orientada a Objetos (POO), assinale a alternativa correta:
+
+a) Atributos são as ações que os objetos podem executar.
+
+b) Métodos representam as características de um objeto.
+
+c) Encapsulamento significa proteger os dados e controlar o acesso a eles.
+
+d) Herança é quando um objeto tem vários métodos com o mesmo nome.
+
+Resposta: alternativa "C"
+
