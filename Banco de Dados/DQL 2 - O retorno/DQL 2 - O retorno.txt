@@ -1,0 +1,46 @@
+1.SELECIONE todos os filmes do diretor Quentin Tarantino.
+
+SELECT * FROM filme
+WHERE id_diretor = 8;
+
+2. SELECIONE todos os atores com nome começando com M em ordem alfabética decrescente (ou seja, de Z a A, de 9 a 0 etc)
+
+SELECT * FROM ator
+WHERE nome LIKE "M%"
+ORDER BY nome DESC;
+
+3. SELECIONE o título em português e o ano de lançamento dos filmes feitos entre 2008 e 2024, em ordem alfabética.
+
+SELECT titulo_portugues, ano_lancamento FROM filme
+WHERE ano_lancamento BETWEEN 2008 and 2024
+ORDER BY titulo_portugues ASC;
+
+4. SELECIONE os atores em ordem decrescente de tamanho de nome (sim, isso é possível - basta usar a função LENGTH())
+
+SELECT nome, LENGTH(nome) AS tamanho_nome FROM ator
+ORDER BY LENGTH(nome) DESC;
+
+5. SELECIONE os filmes criados a partir de 2008.
+
+SELECT * FROM filme
+WHERE ano_lancamento >= 2008;
+
+6. SELECIONE os diretores cujo nome NÃO tem a letra 'A'.
+
+SELECT * FROM diretor
+WHERE nome NOT LIKE "%A%";
+
+7. SELECIONE os gêneros de filme que tem ao menos um espaço em branco no nome.
+
+SELECT * FROM genero
+WHERE nome LIKE "% %";
+
+8. INSIRA um novo filme (de preferência um filme de verdade que você goste e que ainda não está na listinha).
+
+INSERT INTO filme(titulo_original, titulo_portugues, ano_lancamento, link, opiniao, id_diretor) VALUES('Barnyard','O Segredo dos Animais',2006, NULL, 'Não posso opinar', 1);
+
+9. RODADA BÔNUS: escolha 5 filmes que você mais gostou dentre a listinha que eu passei. ATUALIZE estes filme, setando a coluna opiniao para 'Vi e gostei'.
+
+UPDATE filme
+SET opiniao = 'Vi e gostei'
+WHERE id IN (1, 2, 3, 17, 21);

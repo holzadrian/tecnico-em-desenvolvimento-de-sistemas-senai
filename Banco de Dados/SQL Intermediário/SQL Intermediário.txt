@@ -1,0 +1,32 @@
+1. Imagine que você está montando uma tela de pesquisa paginada (semelhante ao Google), que traz 10 registros de cada vez. A tela lista os filmes do mais velho pro mais recente. Como ficaria o SELECT da página 4?
+
+SELECT * FROM filme
+ORDER by ano_lancamento
+LIMIT 10 OFFSET 30;
+
+2. Monte um arquivo com várias instruções. Trata-se de um SELECT para dizer quantos filmes existem na sua base, um SELECT para dizer quantos atores existem na base e um SELECT para dizer quantos diretores tem na base. Não se esqueça de usar ALIAS (apelido) pras colunas de função de agregação.
+
+
+
+3. SELECIONE de uma vez, em uma só linha, a quantidade de caracteres do MAIOR, do MENOR e também o tamanho MÉDIO de nomes de atores. (Minha base não tem uns campos muito bons pra trabalhar com numeros então tô tendo que inventar isso rs)
+
+
+
+4. SELECIONE os filmes lançados por ano, ordenando do ano com mais filmes pro ano com menos. 
+
+
+
+5. SELECIONE os anos que temos apenas um filme na base.
+
+
+
+6. SELECIONE os filmes estrelados por Brad Pitt, Leonardo DiCaprio, Richard Gere ou Ryan Gosling. Obs: tanto faz se o ator é coadjuvante ou principal pra esse caso.
+
+
+
+7. SELECIONE os filmes que tem pelo menos um ator coadjuvante cadastrado na base, mas NÃO mostre o 'Kevin Spacey', pois ele foi cancelado e não falamos mais dele!
+
+
+
+8. SELECIONE os filmes de Ação ou Suspense lançados antes do ano 2000.
+
