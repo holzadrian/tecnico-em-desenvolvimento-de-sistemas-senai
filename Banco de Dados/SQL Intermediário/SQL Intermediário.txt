@@ -6,19 +6,38 @@ LIMIT 10 OFFSET 30;
 
 2. Monte um arquivo com várias instruções. Trata-se de um SELECT para dizer quantos filmes existem na sua base, um SELECT para dizer quantos atores existem na base e um SELECT para dizer quantos diretores tem na base. Não se esqueça de usar ALIAS (apelido) pras colunas de função de agregação.
 
-
+SELECT
+COUNT(*) as qtde
+FROM filme;
+SELECT
+COUNT(*) as qtde
+FROM ator;
+SELECT
+COUNT(*) as qtde
+FROM diretor;
 
 3. SELECIONE de uma vez, em uma só linha, a quantidade de caracteres do MAIOR, do MENOR e também o tamanho MÉDIO de nomes de atores. (Minha base não tem uns campos muito bons pra trabalhar com numeros então tô tendo que inventar isso rs)
 
-
+SELECT
+  MAX(LENGTH(nome)) as maior_nome,
+  MIN(LENGTH(nome)) as menor_nome,
+  AVG(LENGTH(nome)) as media_nome
+ FROM ator;
 
 4. SELECIONE os filmes lançados por ano, ordenando do ano com mais filmes pro ano com menos. 
 
-
+SELECT titulo_original, titulo_portugues, ano_lancamento, opiniao,
+    (SELECT COUNT(*) FROM filme AS f2 WHERE f2.ano_lancamento = f1.ano_lancamento) AS total_filmes
+FROM filme AS f1
+ORDER BY total_filmes DESC;
 
 5. SELECIONE os anos que temos apenas um filme na base.
 
-
+SELECT ano_lancamento,
+COUNT(*) AS total_filmes
+FROM filme
+GROUP BY ano_lancamento
+HAVING COUNT(*) = 1;
 
 6. SELECIONE os filmes estrelados por Brad Pitt, Leonardo DiCaprio, Richard Gere ou Ryan Gosling. Obs: tanto faz se o ator é coadjuvante ou principal pra esse caso.
 

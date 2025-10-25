@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+    <h1>Lista de Alunos</h1>
+    <table>
+        <tr>
+            <td>Nome</td>
+            <td>Idade</td>
+            <td>Nota</td>
+        </tr>
+        {% for aluno in lista_alunos %}
+        <tr>
+            <td>{{ aluno.nome }}</td>
+            <td>{{ aluno.idade }}</td>
+            <td>{{ aluno.nota }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
