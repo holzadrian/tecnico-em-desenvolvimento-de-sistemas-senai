@@ -41,11 +41,35 @@ HAVING COUNT(*) = 1;
 
 6. SELECIONE os filmes estrelados por Brad Pitt, Leonardo DiCaprio, Richard Gere ou Ryan Gosling. Obs: tanto faz se o ator é coadjuvante ou principal pra esse caso.
 
-
+SELECT titulo_original, titulo_portugues, ano_lancamento
+FROM filme
+WHERE id IN (
+    SELECT DISTINCT e.id_filme
+    FROM elenco e
+    INNER JOIN ator a ON e.id_ator = a.id
+    WHERE a.nome IN ('Brad Pitt', 'Leonardo DiCaprio', 'Richard Gere', 'Ryan Gosling')
+);
 
 7. SELECIONE os filmes que tem pelo menos um ator coadjuvante cadastrado na base, mas NÃO mostre o 'Kevin Spacey', pois ele foi cancelado e não falamos mais dele!
 
-
+SELECT titulo_original, titulo_portugues, ano_lancamento
+FROM filme
+WHERE id IN (
+    SELECT DISTINCT e.id_filme
+    FROM elenco e
+    INNER JOIN ator a ON e.id_ator = a.id
+    WHERE e.principal = 0
+    AND a.nome != 'Kevin Spacey'
+);
 
 8. SELECIONE os filmes de Ação ou Suspense lançados antes do ano 2000.
 
+SELECT titulo_original, titulo_portugues, ano_lancamento
+FROM filme
+WHERE ano_lancamento < 2000
+AND id IN (
+    SELECT DISTINCT fg.id_filme
+    FROM filme_genero fg
+    INNER JOIN genero g ON fg.id_genero = g.id
+    WHERE g.nome IN ('Ação', 'Suspense')
+);
