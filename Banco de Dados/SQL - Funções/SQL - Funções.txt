@@ -1,0 +1,43 @@
+1. CASE WHEN -> Exiba o titulo em português de cada filme e a década de seu lançamento. Ex: "Clube da Luta", "Anos 90".
+
+SELECT 
+    titulo_portugues,
+    CASE 
+        WHEN ano_lancamento BETWEEN 1980 AND 1989 THEN 'Anos 80'
+        WHEN ano_lancamento BETWEEN 1990 AND 1999 THEN 'Anos 90'
+        WHEN ano_lancamento BETWEEN 2000 AND 2009 THEN 'Anos 2000'
+        WHEN ano_lancamento BETWEEN 2010 AND 2019 THEN 'Anos 2010'
+        WHEN ano_lancamento BETWEEN 2020 AND 2029 THEN 'Anos 2020'
+        ELSE 'Outra década'
+    END AS decada
+FROM filme;
+
+2. CONCAT -> Mostre em uma coluna só o nome do filme e seu ano de lançamento entre parênteses. Ex: "Clube da Luta (1999)"
+
+SELECT
+	CONCAT(titulo_portugues, ' (', ano_lancamento, ')') AS filme_formatado
+FROM filme;
+
+3. SUBSTRING e INSTR -> Mostre apenas o primeiro nome dos atores. Ex: "Brad" / "Leonardo".
+
+SELECT 
+    SUBSTRING(nome, 1, INSTR(nome, ' ') - 1) AS primeiro_nome
+FROM ator;
+
+4. (INNER) JOIN -> Mostre o titulo de cada filme e seus gêneros.
+
+SELECT
+	f.titulo_portugues AS titulo,
+    g.nome AS genero
+FROM filme AS f
+INNER JOIN filme_genero AS fg ON f.id = fg.id_filme
+INNER JOIN genero AS g ON g.id = fg.id_genero;
+
+5. LEFT JOIN e COALESCE -> Mostre o título de cada filme e seus gêneros. Se não houver nenhum gênero cadastrado pro filme, exiba apenas "S/G" como o gênero.
+
+SELECT 
+    f.titulo_portugues AS titulo,
+    COALESCE(g.nome, 'S/G') AS genero
+FROM filme AS f
+LEFT JOIN filme_genero AS fg ON f.id = fg.id_filme
+LEFT JOIN genero AS g ON g.id = fg.id_genero;

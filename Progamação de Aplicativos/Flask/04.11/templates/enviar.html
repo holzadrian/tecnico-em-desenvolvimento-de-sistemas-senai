@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineFlask - Adicionar Filme</title>
+    <style>
+        /* ===== VARIÁVEIS E RESET ===== */
+        :root {
+            --primary: #0d0d2b;
+            --secondary: #1a1a4b;
+            --accent: #e50914;
+            --accent-light: #ff4757;
+            --text: #ffffff;
+            --text-secondary: #b0b0b0;
+            --card-bg: rgba(26, 26, 75, 0.7);
+            --card-border: rgba(229, 9, 20, 0.3);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s ease;
+            --success: #2ecc71;
+            --input-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text);
+            min-height: 100vh;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Efeito de luzes de cinema */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(229, 9, 20, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(229, 9, 20, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(26, 26, 75, 0.2) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* ===== ANIMAÇÕES GLOBAIS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes spotlight {
+            0% { background-position: -100% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(229, 9, 20, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(229, 9, 20, 0.6); }
+        }
+
+        /* ===== LAYOUT PRINCIPAL ===== */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* ===== HEADER E NAVEGAÇÃO ===== */
+        header {
+            background: rgba(13, 13, 43, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
+            animation: pulse 3s infinite;
+        }
+
+        .logo::before {
+            content: "🎬";
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(229, 9, 20, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        nav a:hover::before {
+            left: 100%;
+        }
+
+        nav a:hover {
+            background: rgba(229, 9, 20, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* ===== TÍTULO DA PÁGINA ===== */
+        .page-title {
+            text-align: center;
+            margin: 2rem 0 3rem;
+            position: relative;
+        }
+
+        .page-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #fff, var(--accent-light), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: spotlight 3s linear infinite;
+        }
+
+        .page-title p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* ===== FORMULÁRIO ===== */
+        .form-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group label::before {
+            content: '🎞️';
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: var(--input-bg);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.15);
+            animation: glow 2s infinite;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        /* Estilo específico para campos de ano e avaliação */
+        .form-group:nth-child(3) label::before {
+            content: '📅';
+        }
+
+        .form-group:nth-child(4) label::before {
+            content: '⭐';
+        }
+
+        /* ===== BOTÃO DE ENVIO ===== */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(229, 9, 20, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn::after {
+            content: '➕';
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* ===== DECORAÇÃO DO FORMULÁRIO ===== */
+        .form-decoration {
+            position: absolute;
+            font-size: 5rem;
+            opacity: 0.1;
+            z-index: 0;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .decoration-1 {
+            top: 20px;
+            right: 30px;
+            animation-delay: 0s;
+        }
+
+        .decoration-2 {
+            bottom: 20px;
+            left: 30px;
+            animation-delay: 2s;
+        }
+
+        .decoration-3 {
+            top: 50%;
+            left: 10%;
+            animation-delay: 4s;
+        }
+
+        /* ===== MENSAGENS DE STATUS ===== */
+        .form-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            animation: fadeIn 0.5s ease-out;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .form-message.error {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid var(--accent);
+            color: var(--accent-light);
+        }
+
+        /* ===== RODAPÉ ===== */
+        footer {
+            background: rgba(13, 13, 43, 0.9);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav {
+                gap: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 2rem;
+            }
+            
+            .page-title h1 {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+            
+            .form-decoration {
+                font-size: 3rem;
+            }
+        }
+
+        /* ===== ANIMAÇÃO DE CARREGAMENTO ===== */
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>CineFlask</h1>
+        </div>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/filmes">Filmes</a>
+            <a href="/salas">Salas</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="page-title">
+                <h1>Adicionar Novo Filme</h1>
+                <p>Complete as informações abaixo para adicionar um novo filme ao catálogo</p>
+            </div>
+
+            <div class="form-container">
+                <!-- Elementos decorativos -->
+                <div class="form-decoration decoration-1">🎬</div>
+                <div class="form-decoration decoration-2">📽️</div>
+                <div class="form-decoration decoration-3">🍿</div>
+
+                <!-- Mensagem de status (inicialmente oculta) -->
+                <div class="form-message success" id="successMessage">
+                    Filme adicionado com sucesso!
+                </div>
+
+                <form action="/enviar" method="POST" id="movieForm">
+                    <div class="form-group">
+                        <label for="titulo">Título do Filme:</label>
+                        <input type="text" id="titulo" name="titulo" placeholder="Digite o título do filme" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="genero">Gênero:</label>
+                        <select id="genero" name="genero" required>
+                            <option value="">Selecione um gênero</option>
+                            <option value="Ação">Ação</option>
+                            <option value="Aventura">Aventura</option>
+                            <option value="Comédia">Comédia</option>
+                            <option value="Drama">Drama</option>
+                            <option value="Ficção Científica">Ficção Científica</option>
+                            <option value="Terror">Terror</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Animação">Animação</option>
+                            <option value="Documentário">Documentário</option>
+                            <option value="Fantasia">Fantasia</option>
+                            <option value="Suspense">Suspense</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ano">Ano de Lançamento:</label>
+                        <input type="number" id="ano" name="ano" min="1888" max="2025" placeholder="Ex: 2023" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="avaliacao">Avaliação (0-10):</label>
+                        <div class="rating-input">
+                            <input type="range" id="avaliacao" name="avaliacao" min="0" max="10" step="0.1" value="7.5">
+                            <div class="rating-display">
+                                <span id="ratingValue">7.5</span>
+                                <div class="stars-preview">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star empty">★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        Adicionar Filme
+                    </button>
+
+                    <div class="loading" id="loadingIndicator">
+                        <div class="loading-spinner"></div>
+                        <p>Adicionando filme...</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>CineFlask &copy; 2025 - A melhor experiência cinematográfica</p>
+        <p>Desenvolvido com ❤️ para amantes de cinema</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('movieForm');
+            const ratingInput = document.getElementById('avaliacao');
+            const ratingValue = document.getElementById('ratingValue');
+            const starsPreview = document.querySelector('.stars-preview');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const successMessage = document.getElementById('successMessage');
+
+            // Atualizar visualização da avaliação
+            function updateRatingDisplay() {
+                const value = parseFloat(ratingInput.value);
+                ratingValue.textContent = value.toFixed(1);
+                
+                // Atualizar estrelas
+                const fullStars = Math.floor(value / 2);
+                const hasHalfStar = (value / 2 - fullStars) >= 0.5;
+                
+                starsPreview.innerHTML = '';
+                
+                // Estrelas cheias
+                for (let i = 0; i < fullStars; i++) {
+                    const star = document.createElement('span');
+                    star.className = 'star';
+                    star.textContent = '★';
+                    starsPreview.appendChild(star);
+                }
+                
+                // Meia estrela
+                if (hasHalfStar) {
+                    const halfStar = document.createElement('span');
+                    halfStar.className = 'star half';
+                    halfStar.textContent = '★';
+                    halfStar.style.opacity = '0.7';
+                    starsPreview.appendChild(halfStar);
+                }
+                
+                // Estrelas vazias
+                const totalStars = 5;
+                const emptyStars = totalStars - fullStars - (hasHalfStar ? 1 : 0);
+                
+                for (let i = 0; i < emptyStars; i++) {
+                    const emptyStar = document.createElement('span');
+                    emptyStar.className = 'star empty';
+                    emptyStar.textContent = '★';
+                    starsPreview.appendChild(emptyStar);
+                }
+            }
+
+            // Event listeners
+            ratingInput.addEventListener('input', updateRatingDisplay);
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Mostrar loading
+                loadingIndicator.style.display = 'block';
+                
+                // Simular envio (substituir por envio real)
+                setTimeout(function() {
+                    loadingIndicator.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    
+                    // Rolando para a mensagem de sucesso
+                    successMessage.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Resetar formulário após 2 segundos
+                    setTimeout(function() {
+                        form.reset();
+                        updateRatingDisplay();
+                        successMessage.style.display = 'none';
+                    }, 3000);
+                }, 2000);
+            });
+
+            // Inicializar display da avaliação
+            updateRatingDisplay();
+        });
+    </script>
+</body>
+</html>
