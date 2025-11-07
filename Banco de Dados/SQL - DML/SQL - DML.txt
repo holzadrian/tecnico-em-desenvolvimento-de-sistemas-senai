@@ -1,0 +1,26 @@
+1. INSERT SIMPLES -> Cadastre um novo filme na base, preenchendo todos os campos, na sequencia (ou seja, sem informar o nome das colunas). Sugestão de dados: 'Love & Other Drugs','Amor e Outras Drogas',2010, 'https://www.imdb.com/pt/title/tt0758752/'
+
+INSERT INTO filme (titulo_original, titulo_portugues, ano_lancamento, link)
+VALUES ('Love & Other Drugs','Amor e Outras Drogas',2010, 'https://www.imdb.com/pt/title/tt0758752/')
+
+2. INSERT RESUMIDO -> Cadastre um novo filme preenchendo o mínimo possível de colunas.
+
+
+
+3. INSERT EM MASSA -> Insira vários registros na tabela ATOR de uma só vez (lembrando que ATRIZ tb vai pra essa tabela né?)
+DELETE de registro incorreto -> Insira um novo gênero qualquer. Na sequencia delete esse registro.
+
+
+
+4. UPDATE -> Escolha três filmes da base que você goste e atualize a opinião deles para 'Vi e gostei'.
+
+
+
+Nível avançado
+
+1. DELETE com join -> Exclua  os filmes onde o Kevin Spacey tenha atuado.
+
+
+
+2. INSERT com join -> Insira os gêneros para os filmes de Star Wars.
+
