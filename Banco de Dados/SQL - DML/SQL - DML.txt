@@ -5,22 +5,61 @@ VALUES ('Love & Other Drugs','Amor e Outras Drogas',2010, 'https://www.imdb.com/
 
 2. INSERT RESUMIDO -> Cadastre um novo filme preenchendo o mínimo possível de colunas.
 
-
+INSERT INTO filme (titulo_original, ano_lancamento)
+VALUES ('American Pie',1999)
 
 3. INSERT EM MASSA -> Insira vários registros na tabela ATOR de uma só vez (lembrando que ATRIZ tb vai pra essa tabela né?)
-DELETE de registro incorreto -> Insira um novo gênero qualquer. Na sequencia delete esse registro.
 
+INSERT INTO ator (nome)
+VALUES ('Meryl Streep'),
+('Tom Cruise'),
+('Scarlett Johansson'),
+('Matthew McConaughey'),
+('Anne Hathaway'),
+('Benicio Del Toro'),
+('Bryan Cranston'),
+('Florence Pugh'),
+('Idris Elba'),
+('Zendaya'),
+('Willem Dafoe'),
+('Tilda Swinton'),
+('Oscar Isaac'),
+('Jessica Chastain'),
+('Christian Bale'),
+('Rachel McAdams'),
+('Paul Dano'),
+('Andrew Garfield'),
+('Daniel Kaluuya'),
+('Jodie Comer')
 
+4. DELETE de registro incorreto -> Insira um novo gênero qualquer. Na sequencia delete esse registro.
 
-4. UPDATE -> Escolha três filmes da base que você goste e atualize a opinião deles para 'Vi e gostei'.
+INSERT INTO genero (nome) 
+VALUES ('Aventura');
 
+DELETE FROM genero 
+WHERE nome = 'Aventura';
 
+5. UPDATE -> Escolha três filmes da base que você goste e atualize a opinião deles para 'Vi e gostei'.
+
+UPDATE filme 
+SET opiniao = 'Vi e gostei' 
+WHERE id IN (1, 2, 43);
 
 Nível avançado
 
 1. DELETE com join -> Exclua  os filmes onde o Kevin Spacey tenha atuado.
 
-
+DELETE f
+FROM filme f
+JOIN filme_ator fa ON fa.id_filme = f.id
+JOIN ator a ON a.id = fa.id_ator
+WHERE a.nome = 'Kevin Spacey';
 
 2. INSERT com join -> Insira os gêneros para os filmes de Star Wars.
 
+INSERT INTO filme_genero (id_filme, id_genero)
+SELECT f.id, g.id 
+FROM filme f
+JOIN genero g ON g.nome = 'Ficção Científica'
+WHERE f.titulo_original LIKE 'Star Wars:%'
